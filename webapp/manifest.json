@@ -42,6 +42,19 @@
           "odataVersion": "2.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "ProductionOrder-monitorLocation": {
+          "semanticObject": "ProductionOrder",
+          "action": "monitorLocation",
+          "title": "{{ProductionOrder-monitorLocation.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {
