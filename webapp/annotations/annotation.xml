@@ -43,6 +43,33 @@
                     <PropertyPath>Material</PropertyPath>
                 </Collection>
             </Annotation>
+            <Annotation Term="UI.FieldGroup" Qualifier="FieldGroup1">
+                <Record Type="UI.FieldGroupType">
+                    <PropertyValue Property="Data">
+                        <Collection>
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Material"/>
+                            </Record>
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="InspectionLot"/>
+                            </Record>
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="ActualDeliveredQuantity"/>
+                            </Record>
+                        </Collection>
+                    </PropertyValue>
+                    <PropertyValue Property="Label" String="FieldGroup1"/>
+                </Record>
+            </Annotation>
+            <Annotation Term="UI.Facets">
+                <Collection>
+                    <Record Type="UI.ReferenceFacet">
+                        <PropertyValue Property="Label" String="FieldGroup1"/>
+                        <PropertyValue Property="ID" String="FieldGroup1"/>
+                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#FieldGroup1"/>
+                    </Record>
+                </Collection>
+            </Annotation>
         </Annotations>
         </Schema>
     </edmx:DataServices>
