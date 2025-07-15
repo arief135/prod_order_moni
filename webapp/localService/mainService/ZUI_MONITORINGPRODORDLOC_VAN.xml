@@ -29,6 +29,15 @@
     </edmx:Reference>
     <edmx:DataServices>
         <Schema Namespace="zui_monitoringprodordloc_van.v1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="cds_zui_monitoringprodordloc.MonitoringProdOrdLocType">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ManufacturingOrder"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
             <Annotations Target="_Entities"/>
         </Schema>
     </edmx:DataServices>
