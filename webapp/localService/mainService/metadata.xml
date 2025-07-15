@@ -42,6 +42,14 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="cds_zui_monitoringprodordloc" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="I_ProductStdVHType" sap:label="Product Value Help" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Product"/>
+                </Key>
+                <Property Name="Product" Type="Edm.String" Nullable="false" MaxLength="18" sap:display-format="UpperCase" sap:text="Product_Text" sap:label="Product" sap:quickinfo="Product Number"/>
+                <Property Name="Product_Text" Type="Edm.String" MaxLength="40" sap:label="Product Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductExternalID" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="External Product ID" sap:quickinfo="External Representation of Material Number"/>
+            </EntityType>
             <EntityType Name="MonitoringProdOrdLocType" sap:label="ZI_MonitoringProdOrdLoc" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="ManufacturingOrder"/>
@@ -56,7 +64,7 @@
                 <Property Name="WorkCenterInternalID" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="NonNegative" sap:label="Object ID" sap:quickinfo="Object ID of the resource"/>
                 <Property Name="WorkCenterTypeCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Object Type" sap:quickinfo="Object types of the CIM resource"/>
                 <Property Name="ManufacturingOrderType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Order Type"/>
-                <Property Name="Material" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number for Order"/>
+                <Property Name="Material" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number for Order" sap:value-list="standard"/>
                 <Property Name="WorkCenterLocation" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Location" sap:quickinfo="Work center location"/>
                 <Property Name="SalesOrder" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales Order"/>
                 <Property Name="SalesOrderItem" Type="Edm.String" MaxLength="6" sap:display-format="NonNegative" sap:label="Sales Order Item"/>
@@ -336,6 +344,7 @@
                 </ReferentialConstraint>
             </Association>
             <EntityContainer Name="cds_zui_monitoringprodordloc_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx pdf">
+                <EntitySet Name="I_ProductStdVH" EntityType="cds_zui_monitoringprodordloc.I_ProductStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="MonitoringProdOrdLoc" EntityType="cds_zui_monitoringprodordloc.MonitoringProdOrdLocType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__FormatSet" EntityType="cds_zui_monitoringprodordloc.SAP__Format" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__PDFStandardSet" EntityType="cds_zui_monitoringprodordloc.SAP__PDFStandard" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
@@ -388,8 +397,48 @@
                 </AssociationSet>
             </EntityContainer>
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="cds_zui_monitoringprodordloc.MonitoringProdOrdLocType/Material" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Material"/>
+                        <PropertyValue Property="CollectionPath" String="I_ProductStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Material"/>
+                                    <PropertyValue Property="ValueListProperty" String="Product"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Product_Text"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ProductExternalID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <Annotations Target="cds_zui_monitoringprodordloc.cds_zui_monitoringprodordloc_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+            </Annotations>
+            <Annotations Target="cds_zui_monitoringprodordloc.cds_zui_monitoringprodordloc_Entities/I_ProductStdVH" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="cds_zui_monitoringprodordloc.cds_zui_monitoringprodordloc_Entities/MonitoringProdOrdLoc" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Capabilities.DeleteRestrictions">
@@ -470,6 +519,9 @@
             <Annotations Target="cds_zui_monitoringprodordloc.MonitoringProdOrdLocType/ProductionPlant" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PWWRK&amp;origin=TVJ_100"/>
             </Annotations>
+            <Annotations Target="cds_zui_monitoringprodordloc.I_ProductStdVHType/Product" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PRODUCTNUMBER&amp;origin=TVJ_100"/>
+            </Annotations>
             <Annotations Target="cds_zui_monitoringprodordloc.MonitoringProdOrdLocType/SalesOrderItem" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CO_KDPOS&amp;origin=TVJ_100"/>
             </Annotations>
@@ -482,8 +534,14 @@
             <Annotations Target="cds_zui_monitoringprodordloc.MonitoringProdOrdLocType/ProductionVersion" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VERID&amp;origin=TVJ_100"/>
             </Annotations>
+            <Annotations Target="cds_zui_monitoringprodordloc.I_ProductStdVHType/ProductExternalID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=MATNR_EXTERNAL&amp;origin=TVJ_100"/>
+            </Annotations>
             <Annotations Target="cds_zui_monitoringprodordloc.MonitoringProdOrdLocType/InspectionLot" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=QPLOS&amp;origin=TVJ_100"/>
+            </Annotations>
+            <Annotations Target="cds_zui_monitoringprodordloc.I_ProductStdVHType/Product_Text" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PRODUCTDESCRIPTION&amp;origin=TVJ_100"/>
             </Annotations>
             <Annotations Target="cds_zui_monitoringprodordloc.MonitoringProdOrdLocType/Material" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CO_MATNR&amp;origin=TVJ_100"/>

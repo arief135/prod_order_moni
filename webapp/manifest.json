@@ -136,6 +136,9 @@
             },
             "tableSettings": {
               "type": "ResponsiveTable"
+            },
+            "dataLoadSettings": {
+              "loadDataOnAppLaunch": "always"
             }
           }
         },
